@@ -33,7 +33,7 @@ export default function Chatbot() {
     setMessage("");
     setGenerating(true)
     
-    const searchResponse = await fetch("/api/search", {
+    const searchResponse = await fetch("/api/embedding", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -54,7 +54,7 @@ export default function Chatbot() {
     ${results?.map((d) => d.content).join("\n\n")}
     `;
 
-    const answerResponse = await fetch("/api/answer", {
+    const answerResponse = await fetch("/api/final-result", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -100,18 +100,17 @@ export default function Chatbot() {
       <main className="mx-auto sm:max-w-4xl lg:max-w-5xl 2xl:max-w-6xl">
 
         {referred &&
-          <p className="text-center rounded-lg border border-red-100 bg-red-50 px-4 py-5 sm:px-6 mb-8 -mt-5 font-medium text-gray-900 max-w-[800px] mx-auto">
-            {"Unable to scrape the website provided. You can still chat with one of the publicly available chatbot."}
+          <p className="text-center rounded-lg border border-red-400 bg-red-100 px-4 py-5 sm:px-6 mb-8 -mt-5 font-medium text-gray-900 max-w-[800px] mx-auto">
+            {"Unable to embed the document/webpage you provided. You can chat with other available chatbot."}
           </p>
         }   
 
         <div className="">
           <div className="space-y-4">
             <div className=''>
-              <h3 className="text-center text-2xl font-semibold text-gray-900">Chat with Paul Graham</h3>
-              <p className="mt-1 text-center text-sm text-gray-500 max-w-lg mx-auto">
-                Be as direct and specific as possible in your questions. 
-                And remember, pobody is nerfect. But all chatbots try their best.
+              <h3 className="text-center text-2xl font-semibold text-gray-900">Robotic Medicine Chatbot</h3>
+              <p className="mt-1 text-center text-sm text-gray-500 max-w-3xl mx-auto">
+                Experience the future of healthcare robotics with our advanced Robotic Medicine chatbot. Stay informed about the latest research and advancements, and explore the diverse applications of robotics in medicine, from surgical procedures to AI diagnostics. Engage in interactive conversations and expand your knowledge in this exciting field.
               </p>
             </div>
             <div className="flex flex-wrap lg:flex-nowrap lg:gap-8 pt-7">
@@ -121,7 +120,9 @@ export default function Chatbot() {
                     <li>
                       <div className="center flex items-center justify-start space-x-4 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-5 sm:px-6">
                         <img src="/images/profile.png" className="h-10 rounded-full" alt="Robot Icon" />
-                        <p className="text-left font-medium text-gray-900">Hi there! Paul Graham here. How can I help you today?</p>
+                        <p className="text-left font-medium text-gray-900">
+                          Hi there! This is your Robotic Medicine Chatbot. What do you want to know about Robotic Medicine?
+                        </p>
                       </div>
                     </li>
 
@@ -164,7 +165,7 @@ export default function Chatbot() {
                             name="question"
                             required={"required"}
                             className="block w-full resize-none border-0 py-3 px-3 transition focus:outline-none focus:ring-0 placeholder-gray-500 focus:placeholder-gray-400 font-medium text-gray-900"
-                            placeholder="What do you wish to know?"
+                            placeholder="Ask any question about Robotic Medicine?"
                             onChange={onInputChange}
                             onKeyDown={handleKeyDown}
                             value={message}

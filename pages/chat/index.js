@@ -21,8 +21,10 @@ export default function Home() {
               <div>
                 <ul role="list" className="flex flex-col flex-wrap">                
                   <li className="flex flex-col rounded-lg border text-center border-indigo-400 bg-indigo-50 py-6 w-full">
-                    <Link href='/chat/6418c20aaa9d5fa35f5134a4' className='font-semibold text-indigo-700'>YC Post-Money User Guide</Link>
-                    <p className="relative mt-1 text-sm text-gray-500">No description, just a name</p>
+                    <Link href='/chat/6418c20aaa9d5fa35f5134a4' className='font-semibold text-indigo-700 text-lg'>Robotic Medicine Chatbot</Link>
+                    <p className="relative mt-1 text-sm text-gray-500 px-4">
+                      Experience the future of healthcare robotics with our advanced Robotic Medicine chatbot. Stay informed about the latest research and advancements, and explore the diverse applications of robotics in medicine, from surgical procedures to AI diagnostics. Engage in interactive conversations and expand your knowledge in this exciting field.
+                    </p>
                   </li>                
                 </ul>
               </div>
