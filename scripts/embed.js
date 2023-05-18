@@ -1,7 +1,7 @@
-import { loadEnvConfig } from "@next/env";
-import { createClient } from "@supabase/supabase-js";
-import fs from "fs";
-import { Configuration, OpenAIApi } from "openai";
+const { loadEnvConfig } = require("@next/env");
+const { createClient } = require("@supabase/supabase-js");
+const fs = require("fs");
+const { Configuration, OpenAIApi } = require("openai");
 
 loadEnvConfig("");
 
@@ -12,12 +12,12 @@ const generateEmbeddings = async (essays) => {
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
   for (let i = 0; i < essays.length; i++) {
-    const section = essays[i];
+    const chunk = essays[i];
 
-    for (let j = 0; j < section.chunks.length; j++) {
-      const chunk = section.chunks[j];
+    // for (let j = 0; j < section.chunks.length; j++) {
+    //   const chunk = section.chunks[j];
 
-      const { essay_title, essay_url, essay_date, essay_thanks, content, content_length, content_tokens } = chunk;
+      const { content } = chunk;
 
       const embeddingResponse = await openai.createEmbedding({
         model: "text-embedding-ada-002",
@@ -27,15 +27,9 @@ const generateEmbeddings = async (essays) => {
       const [{ embedding }] = embeddingResponse.data.data;
 
       const { data, error } = await supabase
-        .from("pg")
+        .from("doc")
         .insert({
-          essay_title,
-          essay_url,
-          essay_date,
-          essay_thanks,
           content,
-          content_length,
-          content_tokens,
           embedding
         })
         .select("*");
@@ -43,16 +37,16 @@ const generateEmbeddings = async (essays) => {
       if (error) {
         console.log("error", error);
       } else {
-        console.log("saved", i, j);
+        console.log("saved", i);
       }
 
       await new Promise((resolve) => setTimeout(resolve, 200));
-    }
+    // }
   }
 };
 
 (async () => {
-  const book = JSON.parse(fs.readFileSync("scripts/pg.json", "utf8"));
+  const book = JSON.parse(fs.readFileSync("scripts/content.json", "utf8"));
 
-  await generateEmbeddings(book.essays);
+  await generateEmbeddings(book);
 })();
