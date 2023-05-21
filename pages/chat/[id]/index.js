@@ -96,7 +96,7 @@ export default function Chatbot() {
   }
 
   return (
-    <Template title={"Chat with Paul Graham"} activeTab={"chat"}>
+    <Template title={"Robotic Medicine Chatbot"} activeTab={"chat"}>
       <main className="mx-auto sm:max-w-4xl lg:max-w-5xl 2xl:max-w-6xl">
 
         {referred &&
